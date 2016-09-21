@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejemplos;
+package racional;
 
 /**
  *
- * @author Ivan
- * Clase que implementa un numero Racional
+ * @author Ivan Clase que implementa un numero Racional
  */
 public class Racional {
 
@@ -22,6 +21,24 @@ public class Racional {
     public Racional(int numerador, int denominador) {
         this.numerador = numerador;
         this.denominador = denominador;
+        simplifica();
+    }
+
+    private void simplifica() {
+        if (this.numerador > this.denominador) {
+            if (this.numerador % this.denominador == 0) {
+                this.numerador /= this.denominador;
+                this.denominador = 1;
+            }
+        }else if(this.numerador < this.denominador){
+            if (this.denominador % this.numerador == 0){
+                this.denominador /= this.numerador;
+                this.numerador = 1;
+            }
+        }else if(this.numerador == this.denominador){
+            this.numerador = 1;
+            this.denominador = 1;
+        }
     }
 
     public Racional suma(Racional r) {
