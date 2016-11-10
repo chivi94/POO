@@ -276,11 +276,11 @@ public class MaquinaVending {
 	*
 	*/
 	public boolean hayProducto(int linea) {
-		boolean vacio = false;
+		boolean noVacio = true;
 		if (getStock()[linea] == 0) {
-			vacio = true;
+			noVacio = false;
 		}
-		return vacio;
+		return noVacio;
 	}
 	/**Comprueba si la cantidad pasada como argumento está bien.
 	* @param cantidad
