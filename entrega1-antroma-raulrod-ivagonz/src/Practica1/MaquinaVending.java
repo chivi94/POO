@@ -84,104 +84,103 @@ public class MaquinaVending {
 		}
 		return getProductos()[linea].getPrecio();
 	}
-	
+
 	/**
 	 * Mete tantos productos como se le mande en la linea que se le indica.
 	 * 
 	 * @param producto
-	 *            Producto que se desea introducir.
-	 *			  No debe ser nulo.
+	 *            Producto que se desea introducir. No debe ser nulo.
 	 * @param linea
-	 *            Identificador de la linea en la que vamos a introducir el producto.La
-	 *            primera línea tiene como identificador el número 0. Debe ser
-	 *            mayor o igual a 0 y menor que el tamaño de la máquina.
+	 *            Identificador de la linea en la que vamos a introducir el
+	 *            producto.La primera línea tiene como identificador el número
+	 *            0. Debe ser mayor o igual a 0 y menor que el tamaño de la
+	 *            máquina.
 	 * @param cantidad
-	 *            Cantidad de productos que vamos a introducir.
-	 *			  Debe ser positiva.
+	 *            Cantidad de productos que vamos a introducir. Debe ser
+	 *            positiva.
 	 * @throws IllegalArgumentException
 	 *             Si se incumplen las condiciones impuestas a los parámetros.
 	 */
-	public double meterProducto(Producto producto, int linea, int cantidad) {
-		if (producto.equals("")){ 
+	public void meterProducto(Producto producto, int linea, int cantidad) {
+		if (producto.equals("")) {
 			throw new IllegalArgumentException("No se ha introducido un producto.");
 		}
-		if (!lineaCorrecta(linea)){ 
+		if (!lineaCorrecta(linea)) {
 			throw new IllegalArgumentException("La linea introducida es incorrecta.");
 		}
-		if (!cantidadCorrecta(cantidad)){ 
+		if (!cantidadCorrecta(cantidad)) {
 			throw new IllegalArgumentException("La cantidad introducida es erronea.");
 		}
-		
-			getProductos()[linea] = producto;
-			getStock()[linea] = cantidad;
+
+		getProductos()[linea] = producto;
+		getStock()[linea] = cantidad;
 	}
-	
+
 	/**
 	 * Repone el stock de la linea con la cantidad que se le indique.
 	 * 
 	 * @param linea
-	 *            Identificador de la linea en la que vamos a reponer productos. La
-	 *            primera línea tiene como identificador el número 0. Debe ser
-	 *            mayor o igual a 0 y menor que el tamaño de la máquina.
-	 *			  
+	 *            Identificador de la linea en la que vamos a reponer productos.
+	 *            La primera línea tiene como identificador el número 0. Debe
+	 *            ser mayor o igual a 0 y menor que el tamaño de la máquina.
+	 * 
 	 * @param cantidad
-	 *            Cantidad de productos que vamos a introducir.
-	 *			  Debe ser positiva.
+	 *            Cantidad de productos que vamos a introducir. Debe ser
+	 *            positiva.
 	 * @throws IllegalArgumentException
 	 *             Si se incumplen las condiciones impuestas a los parámetros.
 	 */
-	public double reponerLinea(int linea, int cantidad) {
+	public void reponerLinea(int linea, int cantidad) {
 		if (!lineaCorrecta(linea)) {
 			throw new IllegalArgumentException("La linea introducida es incorrecta.");
 		}
-		if (!cantidadCorrecta(cantidad)){ 
+		if (!cantidadCorrecta(cantidad)) {
 			throw new IllegalArgumentException("La cantidad introducida es erronea.");
 		}
-		
-		cantidadProducto(linea) += cantidad;			
+
+		getStock()[linea] += cantidad;
 	}
-	
+
 	/**
 	 * Retira tantos productos como se le mande en la linea que se le indica.
 	 * 
 	 * @param linea
-	 *            Identificador de la linea en la que vamos a retirar productos. La
-	 *            primera línea tiene como identificador el número 0. Debe ser
-	 *            mayor o igual a 0 y menor que el tamaño de la máquina.
+	 *            Identificador de la linea en la que vamos a retirar productos.
+	 *            La primera línea tiene como identificador el número 0. Debe
+	 *            ser mayor o igual a 0 y menor que el tamaño de la máquina.
 	 * @param cantidad
-	 *            Cantidad de producto que vamos a retirar.
-	 *			  Debe ser positiva.
+	 *            Cantidad de producto que vamos a retirar. Debe ser positiva.
 	 * @throws IllegalArgumentException
 	 *             Si se incumplen las condiciones impuestas a los parámetros.
 	 */
-	public double sacarProducto(int linea, int cantidad) {
+	public void sacarProducto(int linea, int cantidad) {
 		if (!lineaCorrecta(linea)) {
 			throw new IllegalArgumentException("La linea introducida es incorrecta.");
 		}
 		if (cantidad > cantidadProducto(linea)) {
-			throw new IllegalArgumentException("La linea no dispone de tantos productos.");	
+			throw new IllegalArgumentException("La linea no dispone de tantos productos.");
 		}
-		cantidadProducto(linea) -= cantidad;
+
+		getStock()[linea] -= cantidad;
 	}
-	
+
 	/**
 	 * Vacia la linea que se la indica.
 	 * 
 	 * @param linea
-	 *            Identificador de la linea que vamos a vaciar. La
-	 *            primera línea tiene como identificador el número 0. Debe ser
-	 *            mayor o igual a 0 y menor que el tamaño de la máquina.
+	 *            Identificador de la linea que vamos a vaciar. La primera línea
+	 *            tiene como identificador el número 0. Debe ser mayor o igual a
+	 *            0 y menor que el tamaño de la máquina.
 	 * @throws IllegalArgumentException
 	 *             Si se incumplen las condiciones impuestas a los parámetros.
 	 */
-	public double vaciarLinea(int linea) {
-		if (!lineaCorrecta(linea)){ 
+	public void vaciarLinea(int linea) {
+		if (!lineaCorrecta(linea)) {
 			throw new IllegalArgumentException("La linea introducida es incorrecta.");
-		}		
-			getProductos()[linea] = null;
-			getStock()[linea] = 0;			
+		}
+		getProductos()[linea] = null;
+		getStock()[linea] = 0;
 	}
-
 
 	/**
 	 * Obtiene el tamaño de la máquina.
@@ -198,9 +197,9 @@ public class MaquinaVending {
 	 * igual a 0 y menor que el tamaño de la máquina.
 	 * 
 	 * @param linea
-	 *            Identificador de la línea consultada. La
-	 *            primera línea tiene como identificador el número 0. Debe ser
-	 *            mayor o igual a 0 y menor que el tamaño de la máquina.
+	 *            Identificador de la línea consultada. La primera línea tiene
+	 *            como identificador el número 0. Debe ser mayor o igual a 0 y
+	 *            menor que el tamaño de la máquina.
 	 * @return Cadena que indica el Producto de la línea.
 	 * @throws IllegalArgumentException
 	 *             Si se incumple la condición impuesta al parámetro.
@@ -235,14 +234,16 @@ public class MaquinaVending {
 		return getStock()[linea];
 	}
 
-	/**Comprueba si la linea pasada como argumento es o no correcta.
-	* @param linea
-	 *            Identificador de la línea consultada. La
-	 *            primera línea tiene como identificador el número 0. Debe ser
-	 *            mayor o igual a 0 y menor que el tamaño de la máquina.
+	/**
+	 * Comprueba si la linea pasada como argumento es o no correcta.
+	 * 
+	 * @param linea
+	 *            Identificador de la línea consultada. La primera línea tiene
+	 *            como identificador el número 0. Debe ser mayor o igual a 0 y
+	 *            menor que el tamaño de la máquina.
 	 * @return Si la linea es o no correcta.
-	*
-	*/
+	 *
+	 */
 	public boolean lineaCorrecta(int linea) {
 		boolean correcta = true;
 		if (linea < 0 || linea > tamanioMaquina()) {
@@ -250,15 +251,17 @@ public class MaquinaVending {
 		}
 		return correcta;
 	}
-	
-	/**Comprueba si el saldo de la tarjeta es suficiente para costear el precio.
-	* @param tarjeta
+
+	/**
+	 * Comprueba si el saldo de la tarjeta es suficiente para costear el precio.
+	 * 
+	 * @param tarjeta
 	 *            Tarjeta con la que se pagará el Producto.
 	 * @param precio
 	 *            precio del Producto a pagar.
 	 * @return Si el saldo es o no suficiente.
-	*
-	*/
+	 *
+	 */
 	public boolean saldoSuficiente(TarjetaMonedero tarjeta, double precio) {
 		boolean haySaldo = true;
 		if (tarjeta.getSaldoActual() < precio) {
@@ -267,14 +270,16 @@ public class MaquinaVending {
 		return haySaldo;
 	}
 
-	/**Comprueba si hay producto seleccionado.
-	* @param linea
-	 *            Identificador de la línea consultada. La
-	 *            primera línea tiene como identificador el número 0. Debe ser
-	 *            mayor o igual a 0 y menor que el tamaño de la máquina.
+	/**
+	 * Comprueba si hay producto seleccionado.
+	 * 
+	 * @param linea
+	 *            Identificador de la línea consultada. La primera línea tiene
+	 *            como identificador el número 0. Debe ser mayor o igual a 0 y
+	 *            menor que el tamaño de la máquina.
 	 * @return Si hay o no Producto.
-	*
-	*/
+	 *
+	 */
 	public boolean hayProducto(int linea) {
 		boolean noVacio = true;
 		if (getStock()[linea] == 0) {
@@ -282,30 +287,37 @@ public class MaquinaVending {
 		}
 		return noVacio;
 	}
-	/**Comprueba si la cantidad pasada como argumento está bien.
-	* @param cantidad
-	 *            Cantidad de producto que vamos a retirar.
-	 *			  Debe ser positiva.
+
+	/**
+	 * Comprueba si la cantidad pasada como argumento está bien.
+	 * 
+	 * @param cantidad
+	 *            Cantidad de producto que vamos a retirar. Debe ser positiva.
 	 * @return Si la cantidad es o no correcta.
-	*
-	*/
-	public boolean cantidadCorrecta(int cantidad){
+	 *
+	 */
+	public boolean cantidadCorrecta(int cantidad) {
 		boolean correcta = true;
 		if (cantidad <= 0) {
 			correcta = false;
 		}
 		return correcta;
 	}
-	
-	/**Obtiene los productos de la máquina.
-	*	@return productos que contiene la máquina.
-	*/
+
+	/**
+	 * Obtiene los productos de la máquina.
+	 * 
+	 * @return productos que contiene la máquina.
+	 */
 	public Producto[] getProductos() {
 		return productos;
 	}
-	/**Obtiene todo el stock de la máquina.
-	*	@return stock de productos que contiene la máquina.
-	*/
+
+	/**
+	 * Obtiene todo el stock de la máquina.
+	 * 
+	 * @return stock de productos que contiene la máquina.
+	 */
 	public int[] getStock() {
 		return stock;
 	}
