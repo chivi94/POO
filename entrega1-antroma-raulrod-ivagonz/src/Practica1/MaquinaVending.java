@@ -157,6 +157,9 @@ public class MaquinaVending {
 		if (!lineaCorrecta(linea)) {
 			throw new IllegalArgumentException("La linea introducida es incorrecta.");
 		}
+		if(!cantidadCorrecta(cantidad)){
+			throw new IllegalArgumentException("Cantidad introducida no válida.");
+		}
 		if (cantidad > cantidadProducto(linea)) {
 			throw new IllegalArgumentException("La linea no dispone de tantos productos.");
 		}
@@ -246,7 +249,7 @@ public class MaquinaVending {
 	 */
 	public boolean lineaCorrecta(int linea) {
 		boolean correcta = true;
-		if (linea < 0 || linea > tamanioMaquina()) {
+		if (linea < 0 || linea >= tamanioMaquina()) {
 			correcta = false;
 		}
 		return correcta;
@@ -282,6 +285,9 @@ public class MaquinaVending {
 	 */
 	public boolean hayProducto(int linea) {
 		boolean noVacio = true;
+		if (!lineaCorrecta(linea)) {
+			throw new IllegalArgumentException("Línea no válida.");
+		}
 		if (getStock()[linea] == 0) {
 			noVacio = false;
 		}
